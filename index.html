@@ -245,45 +245,11 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .sig-for-label{font-size:7px;color:var(--muted);margin-top:3px}
 .sig-co-name{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--ink);margin-top:1px}
 /* Signature line */
-.sig-area{margin-top:18px;padding-top:0;display:flex;align-items:flex-end;justify-content:flex-end;gap:0}
-.sig-line-wrap{width:130px;text-align:center}
-.sig-squiggle{
-  display:block;
-  width:130px;height:28px;
-  border-bottom:1.5px solid var(--sage);
-  position:relative;margin-bottom:4px;
-}
-/* Decorative squiggle via SVG data URI */
-.sig-squiggle::after{
-  content:'';
-  position:absolute;
-  bottom:3px;left:10px;right:10px;
-  height:18px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 18'%3E%3Cpath d='M2 14 Q10 4 20 10 Q28 15 35 8 Q43 2 52 10 Q60 16 68 8 Q76 2 85 10 Q93 16 108 6' stroke='%237c9e8f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
-  opacity:.5;
-}
-.sig-label{font-size:6.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.sig-stamp{
-  width:48px;height:48px;
-  border:1.5px solid var(--terra-mid);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  margin-left:10px;
-  flex-shrink:0;
-  position:relative;
-}
-.sig-stamp::after{
-  content:'APPROVED';
-  position:absolute;font-size:4.5px;font-weight:700;letter-spacing:.08em;
-  color:var(--terra-mid);text-transform:uppercase;
-  bottom:8px;left:50%;transform:translateX(-50%);white-space:nowrap;
-}
-.sig-stamp-inner{
-  width:36px;height:36px;
-  border:1px dashed var(--terra-mid);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:6px;font-weight:700;color:var(--terra-mid);letter-spacing:.04em;text-transform:uppercase;
-}
+.sig-area{margin-top:10px;display:flex;flex-direction:column;align-items:flex-end}
+.sig-curve-wrap{width:170px;text-align:center}
+.sig-curve{display:block;width:170px;height:40px}
+.sig-underline{width:170px;height:1.5px;background:linear-gradient(90deg,transparent,var(--sage) 15%,var(--sage) 85%,transparent);margin:2px 0 5px}
+.sig-label{font-size:6.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;width:170px}
 
 /* ── FOOTER ── */
 .inv-footer{
@@ -630,12 +596,10 @@ function generate(){
             <div class="sig-for-label">For</div>
             <div class="sig-co-name">${sName}</div>
             <div class="sig-area">
-              <div class="sig-line-wrap">
-                <span class="sig-squiggle"></span>
+              <div class="sig-curve-wrap">
+                             
+                <div class="sig-underline"></div>
                 <div class="sig-label">Authorized Signatory</div>
-              </div>
-              <div class="sig-stamp">
-                <div class="sig-stamp-inner">SIGN</div>
               </div>
             </div>
           </div>
