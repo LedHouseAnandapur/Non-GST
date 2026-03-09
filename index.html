@@ -276,7 +276,7 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 
   <div class="sec">Business (Seller)</div>
   <div class="f"><label>Company Name *</label><input id="s_name" placeholder="LED House" oninput="generate()"/></div>
-  <div class="f" id="gstin_row"><label>GSTIN *</label><input id="s_gstin" placeholder="21EVTPR8050M1ZT" maxlength="15" oninput="generate()"/></div>
+  <div class="f" id="gstin_row"><label>GSTIN *</label><input id="s_gstin" placeholder="22AAAAA0000A1Z5" maxlength="15" oninput="generate()"/></div>
   <div class="f"><label>Address</label><textarea id="s_addr" oninput="generate()"></textarea></div>
   <div class="r2">
     <div class="f"><label>Phone</label><input id="s_phone" oninput="generate()"/></div>
@@ -904,7 +904,7 @@ function resetAll(){
 function init(){
   document.getElementById('inv_date').value=today();
   document.getElementById('s_name').value='LED HOUSE';
-  document.getElementById('s_gstin').value='21EVTPR8050M1ZT';
+  document.getElementById('s_gstin').value='';
   document.getElementById('s_phone').value='+91 9124081685';
   document.getElementById('s_email').value='ledhouseanandapur@gmail.com';
   document.getElementById('s_addr').value='Anandapur Bridge Chhaka, Anandapur, Keonjhar-758021';
