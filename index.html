@@ -10,48 +10,70 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* Palette — warm sage + terracotta + cream */
-  --sage:#7c9e8f;
-  --sage-light:#e8f0ec;
-  --sage-mid:#c4d9d0;
-  --terra:#c47a5a;
-  --terra-light:#f5e8e0;
-  --terra-mid:#e4bfaa;
-  --cream:#faf7f2;
-  --cream2:#f2ede4;
-  --gold:#b89a5c;
-  --gold-light:#f0e8d4;
-  --ink:#1c1c1c;
-  --ink2:#2e2e2e;
-  --slate:#5a5a5a;
-  --muted:#999;
-  --border:#d8d0c4;
-  --border2:#e8e2d8;
-  --white:#ffffff;
+  --sage:#7c9e8f;--sage-light:#e8f0ec;--sage-mid:#c4d9d0;
+  --terra:#c47a5a;--terra-light:#f5e8e0;--terra-mid:#e4bfaa;
+  --cream:#faf7f2;--cream2:#f2ede4;--gold:#b89a5c;--gold-light:#f0e8d4;
+  --ink:#1c1c1c;--ink2:#2e2e2e;--slate:#5a5a5a;--muted:#999;
+  --border:#d8d0c4;--border2:#e8e2d8;--white:#ffffff;
   --font-display:'Cormorant Garamond',Georgia,serif;
-  --font-body:'Jost',sans-serif;
-  --font-mono:'DM Mono',monospace;
+  --font-body:'Jost',sans-serif;--font-mono:'DM Mono',monospace;
 }
 body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20px;color:var(--ink)}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#ddd}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
 
-/* ══ TOOLBAR ══ */
+/* TOOLBAR */
 .toolbar{max-width:1300px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:13px 20px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .tb-brand{display:flex;align-items:center;gap:10px}
 .tb-icon{width:36px;height:36px;background:var(--sage);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
 .tb-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--ink)}
 .tb-sub{font-size:.66rem;color:var(--muted);font-family:var(--font-mono);display:block}
-.tb-btns{display:flex;gap:7px;flex-wrap:wrap}
+.tb-btns{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
 .btn{padding:8px 18px;border:none;border-radius:8px;font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .16s;letter-spacing:.02em}
 .btn-reset{background:var(--cream2);color:var(--slate);border:1px solid var(--border)}.btn-reset:hover{background:var(--border)}
 .btn-refresh{background:var(--sage-light);color:var(--sage);border:1px solid var(--sage-mid)}.btn-refresh:hover{background:var(--sage);color:#fff}
-.btn-pdf{background:var(--terra);color:#fff;box-shadow:0 3px 12px rgba(196,122,90,.3)}.btn-pdf:hover{background:#b36848;transform:translateY(-1px)}
 .btn-print{background:var(--ink2);color:#fff}.btn-print:hover{background:var(--ink)}
 
-/* ══ LAYOUT ══ */
+/* Save & Download split button */
+.sd-group{position:relative;display:flex;align-items:stretch}
+.btn-sd-main{background:var(--terra);color:#fff;border:none;border-radius:8px 0 0 8px;padding:8px 14px;font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:background .15s;white-space:nowrap;box-shadow:0 3px 12px rgba(196,122,90,.3)}
+.btn-sd-main:hover{background:#b36848}
+.btn-sd-main:disabled{opacity:.7;cursor:not-allowed}
+.btn-sd-arr{background:#b36848;color:#fff;border:none;border-radius:0 8px 8px 0;padding:8px 10px;cursor:pointer;font-size:.75rem;transition:background .15s;border-left:1px solid rgba(255,255,255,.3)}
+.btn-sd-arr:hover{background:#9a5c38}
+.sd-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.14);min-width:200px;z-index:300;overflow:hidden}
+.sd-menu.open{display:block}
+.sd-item{display:flex;align-items:center;gap:10px;width:100%;padding:10px 14px;background:none;border:none;font-family:var(--font-body);font-size:.75rem;color:var(--ink2);cursor:pointer;text-align:left;transition:background .12s}
+.sd-item:hover{background:var(--terra-light);color:var(--terra)}
+.sd-item .badge{font-size:.62rem;padding:2px 6px;border-radius:4px;font-weight:700;margin-left:auto}
+.badge-n{background:#e0e7ff;color:#4338ca}.badge-h{background:#dcfce7;color:#15803d}.badge-u{background:#fef3c7;color:#b45309}
+.sd-div{height:1px;background:var(--border2)}
+
+/* GF strip */
+.gf-strip{background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px;font-size:.68rem;font-weight:600;color:#15803d}
+.gf-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:#1c1c1c;color:#fff;padding:11px 20px;border-radius:10px;font-size:.78rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.25);display:none;z-index:9999;align-items:center;gap:10px}
+.toast.show{display:flex}
+.toast-spin{width:15px;height:15px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Modal */
+.m-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9998;display:none}
+.m-ov.show{display:block}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:16px;padding:30px 36px;box-shadow:0 24px 60px rgba(0,0,0,.25);z-index:9999;display:none;min-width:320px;text-align:center}
+.modal.show{display:block}
+.modal-icon{font-size:2.6rem;margin-bottom:10px}
+.modal-title{font-size:1.1rem;font-weight:800;color:var(--ink);margin-bottom:6px;font-family:var(--font-display)}
+.modal-msg{font-size:.8rem;color:var(--slate);line-height:1.7;margin-bottom:20px}
+.modal-ok{padding:9px 28px;background:var(--terra);color:#fff;border:none;border-radius:8px;font-family:var(--font-body);font-weight:700;font-size:.85rem;cursor:pointer}
+.modal-ok:hover{background:#b36848}
+
+/* LAYOUT */
 .wrap{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:355px 1fr;gap:18px;align-items:start}
 
-/* ══ FORM PANEL ══ */
+/* FORM PANEL */
 .fp{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.06)}
 .fp-hdr{display:flex;align-items:center;gap:9px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--sage-mid)}
 .fp-dot{width:9px;height:9px;background:var(--sage);border-radius:50%}
@@ -69,10 +91,21 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .logo-zone input{display:none}
 .logo-prev{width:58px;height:58px;object-fit:contain;border-radius:6px;border:1px solid var(--border);background:#fff;display:block;margin:0 auto 7px}
 .logo-hint{font-size:.67rem;color:var(--muted)}
-.items-hdr{display:grid;grid-template-columns:1fr 44px 64px 62px 26px;gap:5px;font-size:.59rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;padding:0 2px}
-.item-row{display:grid;grid-template-columns:1fr 44px 64px 62px 26px;gap:5px;margin-bottom:5px;align-items:center}
-.item-row input{padding:5px 7px;background:var(--cream);border:1.5px solid var(--border2);border-radius:6px;font-family:var(--font-mono);font-size:.7rem;color:var(--ink)}
-.item-row input:focus{outline:none;border-color:var(--sage);background:#fff}
+
+/* Invoice type toggle */
+.inv-type-toggle{display:flex;background:var(--cream2);border:1.5px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:10px}
+.inv-type-btn{flex:1;padding:7px 10px;border:none;background:none;font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;color:var(--muted);letter-spacing:.04em}
+.inv-type-btn.active{background:var(--sage);color:#fff;box-shadow:0 2px 6px rgba(124,158,143,.4)}
+
+/* items */
+.items-hdr-gst{display:grid;grid-template-columns:1fr 44px 64px 44px 58px 26px;gap:5px;font-size:.59rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;padding:0 2px}
+.item-row-gst{display:grid;grid-template-columns:1fr 44px 64px 44px 58px 26px;gap:5px;margin-bottom:5px;align-items:center}
+.items-hdr-plain{display:grid;grid-template-columns:1fr 44px 64px 44px 26px;gap:5px;font-size:.59rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;padding:0 2px}
+.item-row-plain{display:grid;grid-template-columns:1fr 44px 64px 44px 26px;gap:5px;margin-bottom:5px;align-items:center}
+.item-row-gst input,.item-row-gst select,
+.item-row-plain input,.item-row-plain select{padding:5px 7px;background:var(--cream);border:1.5px solid var(--border2);border-radius:6px;font-family:var(--font-mono);font-size:.7rem;color:var(--ink);width:100%}
+.item-row-gst input:focus,.item-row-gst select:focus,
+.item-row-plain input:focus,.item-row-plain select:focus{outline:none;border-color:var(--sage);background:#fff}
 .del-btn{background:none;border:none;color:#ccc;cursor:pointer;font-size:.8rem;transition:all .14s;padding:4px;border-radius:5px}
 .del-btn:hover{color:#c00;background:#fff0f0}
 .add-btn{width:100%;margin-top:5px;padding:7px;border:1.5px dashed var(--border);border-radius:7px;background:none;font-family:var(--font-body);font-size:.72rem;color:var(--muted);cursor:pointer;transition:all .17s}
@@ -83,71 +116,21 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .prev-label{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);display:flex;align-items:center;gap:7px}
 .prev-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* ══════════════════════════════════════════
-   A4  794 × 1123 px
-   Style: Warm Pastel Elegance
-   Layout: Header band → body → sig footer
-══════════════════════════════════════════ */
-.a4{
-  width:794px;height:1123px;
-  background:var(--cream);
-  box-shadow:0 12px 48px rgba(0,0,0,.18),0 3px 12px rgba(0,0,0,.08);
-  font-family:var(--font-body);font-size:9px;
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-}
-
-/* ── Outer decorative border ── */
-/* Double-line outer frame */
-.a4::before{
-  content:'';position:absolute;
-  top:14px;left:14px;right:14px;bottom:14px;
-  border:1.5px solid var(--terra-mid);
-  pointer-events:none;z-index:30;
-}
-.a4::after{
-  content:'';position:absolute;
-  top:18px;left:18px;right:18px;bottom:18px;
-  border:0.5px solid var(--terra-mid);
-  pointer-events:none;z-index:30;
-}
-/* Gold corner ornaments */
-.c-tl,.c-tr,.c-bl,.c-br{
-  position:absolute;width:22px;height:22px;z-index:31;pointer-events:none;
-}
+/* A4 */
+.a4{width:794px;height:1123px;background:var(--cream);box-shadow:0 12px 48px rgba(0,0,0,.18),0 3px 12px rgba(0,0,0,.08);font-family:var(--font-body);font-size:9px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.a4::before{content:'';position:absolute;top:14px;left:14px;right:14px;bottom:14px;border:1.5px solid var(--terra-mid);pointer-events:none;z-index:30;}
+.a4::after{content:'';position:absolute;top:18px;left:18px;right:18px;bottom:18px;border:0.5px solid var(--terra-mid);pointer-events:none;z-index:30;}
+.c-tl,.c-tr,.c-bl,.c-br{position:absolute;width:22px;height:22px;z-index:31;pointer-events:none;}
 .c-tl{top:8px;left:8px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
 .c-tr{top:8px;right:8px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
 .c-bl{bottom:8px;left:8px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
 .c-br{bottom:8px;right:8px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
-/* Corner dots */
 .c-dot{position:absolute;width:5px;height:5px;background:var(--gold);border-radius:50%;z-index:32;pointer-events:none}
 .c-dot-tl{top:9px;left:9px}.c-dot-tr{top:9px;right:9px}
 .c-dot-bl{bottom:9px;left:9px}.c-dot-br{bottom:9px;right:9px}
-
-/* ── Inner wrapper ── */
-.a4-body{
-  position:absolute;
-  top:26px;left:26px;right:26px;bottom:26px;
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-
-/* ── TOP HEADER BAND ── */
-.inv-header-band{
-  background:var(--sage);
-  padding:16px 20px 14px;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-shrink:0;position:relative;overflow:hidden;
-}
-/* subtle diagonal texture lines */
-.inv-header-band::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(
-    -45deg,
-    transparent,transparent 12px,
-    rgba(255,255,255,.04) 12px,rgba(255,255,255,.04) 13px
-  );pointer-events:none;
-}
+.a4-body{position:absolute;top:26px;left:26px;right:26px;bottom:26px;display:flex;flex-direction:column;overflow:hidden;}
+.inv-header-band{background:var(--sage);padding:16px 20px 14px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;position:relative;overflow:hidden;}
+.inv-header-band::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 12px,rgba(255,255,255,.04) 12px,rgba(255,255,255,.04) 13px);pointer-events:none;}
 .hdr-left{position:relative;z-index:1;display:flex;align-items:center;gap:12px}
 .hdr-logo{width:56px;height:56px;object-fit:contain;border-radius:6px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.9);padding:3px}
 .hdr-co-name{font-family:var(--font-display);font-size:28px;font-weight:700;color:#fff;line-height:1;letter-spacing:.02em}
@@ -157,22 +140,14 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .hdr-inv-no{font-family:var(--font-mono);font-size:11px;color:#fff;font-weight:500;margin-top:1px}
 .hdr-date-tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:7.5px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:5px;letter-spacing:.04em}
 .hdr-due{font-size:7px;color:rgba(255,255,255,.55);margin-top:3px}
-
-/* ── DIVIDER STRIPE ── */
 .stripe{height:4px;background:linear-gradient(90deg,var(--terra) 0%,var(--gold) 50%,var(--terra) 100%);flex-shrink:0}
-
-/* ── CONTENT AREA ── */
 .content{flex:1;display:flex;flex-direction:column;padding:10px 20px 0;overflow:hidden}
-
-/* bill/ship row */
 .party-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;flex-shrink:0}
 .party-box{background:#fff;border-radius:6px;padding:9px 12px;position:relative;overflow:hidden;border:1px solid var(--border2);box-shadow:0 1px 4px rgba(0,0,0,.04)}
 .party-box-top-bar{position:absolute;top:0;left:0;right:0;height:3px}
 .party-box-label{font-size:6px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;margin-bottom:3px}
 .party-box-name{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--ink);line-height:1.2}
 .party-box-detail{font-size:7px;color:var(--slate);line-height:1.7;margin-top:2px}
-
-/* items table */
 .items-wrap{flex-shrink:0;margin-bottom:10px}
 .tbl-title{font-size:6.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-bottom:5px;display:flex;align-items:center;gap:6px}
 .tbl-title::after{content:'';flex:1;height:1px;background:var(--border)}
@@ -191,10 +166,7 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .inv-tbl tbody td.dc{font-weight:600;color:var(--ink)}
 .inv-tbl tbody td.tc{font-weight:700;color:var(--terra);font-family:var(--font-mono)}
 .inv-tbl tfoot td{padding:6px 8px;background:var(--terra-light);font-size:8px;font-family:var(--font-mono);font-weight:700;color:var(--terra);border-top:1.5px solid var(--terra-mid)}
-
-/* ── BOTTOM GRID: bank+terms LEFT | totals RIGHT ── */
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0}
-
 .left-col{display:flex;flex-direction:column;gap:8px}
 .bank-box{background:#fff;border:1px solid var(--border2);border-radius:6px;padding:9px 11px;border-left:3px solid var(--sage)}
 .box-title{font-size:6px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
@@ -203,18 +175,14 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .pay-sep{border-top:1px solid var(--border2);margin:5px 0}
 .pay-sub{font-size:6px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:2px}
 .pay-txt{font-size:7px;color:var(--slate);line-height:1.7}
-
 .qr-row{display:flex;gap:8px;align-items:flex-start}
 .qr-box{text-align:center}
 .qr-img{width:64px;height:64px;border:1px solid var(--border);background:#fff;border-radius:5px;padding:2px;display:block}
 .qr-cap{font-size:6px;color:var(--muted);margin-top:2px;line-height:1.4}
 .qr-cap b{color:var(--terra)}
-
 .terms-box{background:var(--gold-light);border:1px solid #ddd0b4;border-radius:6px;padding:8px 11px}
 .terms-title{font-size:6px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
 .terms-txt{font-size:7px;color:#7a6a50;line-height:1.7}
-
-/* RIGHT COL — totals + signature */
 .right-col{display:flex;flex-direction:column;gap:8px}
 .totals-box{background:#fff;border:1px solid var(--border2);border-radius:6px;padding:11px 13px;border-left:3px solid var(--terra)}
 .totals-title{font-size:6px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
@@ -228,50 +196,23 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
 .grand-lbl{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink);letter-spacing:.02em}
 .grand-amt{font-family:var(--font-mono);font-size:19px;font-weight:500;color:var(--terra)}
 .words-row{font-size:6.5px;font-style:italic;color:var(--muted);text-align:right;margin-top:4px;border-top:1px solid var(--border2);padding-top:4px;line-height:1.5}
-
-/* ── SIGNATURE BLOCK (bottom right) ── */
-.sig-box{
-  background:linear-gradient(135deg,var(--sage-light),#fff);
-  border:1px solid var(--sage-mid);
-  border-radius:6px;padding:10px 14px;
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-}
-.sig-box::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--sage),var(--terra),var(--gold));
-}
+.sig-box{background:linear-gradient(135deg,var(--sage-light),#fff);border:1px solid var(--sage-mid);border-radius:6px;padding:10px 14px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.sig-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sage),var(--terra),var(--gold));}
 .sig-for-label{font-size:7px;color:var(--muted);margin-top:3px}
 .sig-co-name{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--ink);margin-top:1px}
-/* Signature line */
 .sig-area{margin-top:10px;display:flex;flex-direction:column;align-items:flex-end}
 .sig-curve-wrap{width:170px;text-align:center}
-.sig-curve{display:block;width:170px;height:40px}
 .sig-underline{width:170px;height:1.5px;background:linear-gradient(90deg,transparent,var(--sage) 15%,var(--sage) 85%,transparent);margin:2px 0 5px}
 .sig-label{font-size:6.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;width:170px}
-
-/* ── FOOTER ── */
-.inv-footer{
-  background:var(--sage);
-  padding:5px 20px;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-shrink:0;
-}
+.inv-footer{background:var(--sage);padding:5px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
 .inv-footer span{font-size:6.5px;color:rgba(255,255,255,.65);font-family:var(--font-mono)}
 .inv-footer-center{font-size:7px;color:rgba(255,255,255,.8);font-style:italic;font-family:var(--font-display)}
 
-@media print{
-  body{background:#fff;padding:0}
-  .toolbar,.wrap>.fp,.prev-label{display:none}
-  .wrap{grid-template-columns:1fr}
-  .a4{box-shadow:none;width:210mm;height:297mm}
-}
+@media print{body{background:#fff;padding:0}.toolbar,.wrap>.fp,.prev-label{display:none}.wrap{grid-template-columns:1fr}.a4{box-shadow:none;width:210mm;height:297mm}}
 </style>
 </head>
 <body>
 
-<!-- TOOLBAR -->
 <div class="toolbar">
   <div class="tb-brand">
     <div class="tb-icon">🧾</div>
@@ -283,29 +224,59 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
   <div class="tb-btns">
     <button class="btn btn-reset" onclick="resetAll()">↺ Reset</button>
     <button class="btn btn-refresh" onclick="generate()">⟳ Refresh</button>
-    <button class="btn btn-pdf" onclick="downloadPDF()">⬇ Download PDF</button>
+    <div class="sd-group" id="sdGroup">
+      <button class="btn-sd-main" id="sdMainBtn" onclick="saveAndDownload('normal')">💾 Save &amp; Download</button>
+      <button class="btn-sd-arr" onclick="toggleSdMenu(event)" title="Quality options">▾</button>
+      <div class="sd-menu" id="sdMenu">
+        <button class="sd-item" onclick="saveAndDownload('normal');closeSdMenu()">📄&nbsp; Normal PDF <span class="badge badge-n">150 DPI</span></button>
+        <div class="sd-div"></div>
+        <button class="sd-item" onclick="saveAndDownload('hd');closeSdMenu()">🖼️&nbsp; HD PDF <span class="badge badge-h">250 DPI</span></button>
+        <div class="sd-div"></div>
+        <button class="sd-item" onclick="saveAndDownload('uhd');closeSdMenu()">✨&nbsp; Ultra HD PDF <span class="badge badge-u">400 DPI</span></button>
+      </div>
+    </div>
     <button class="btn btn-print" onclick="window.print()">🖨 Print</button>
   </div>
 </div>
 
-<div class="wrap">
+<!-- Toast -->
+<div class="toast" id="toast"><div class="toast-spin"></div><span id="toastMsg">Processing...</span></div>
+<!-- Modal -->
+<div class="m-ov" id="mOv" onclick="closeModal()"></div>
+<div class="modal" id="modal">
+  <div class="modal-icon" id="mIcon"></div>
+  <div class="modal-title" id="mTitle"></div>
+  <div class="modal-msg" id="mMsg"></div>
+  <button class="modal-ok" onclick="closeModal()">OK</button>
+</div>
 
-<!-- FORM PANEL -->
+<div class="wrap">
 <div class="fp">
   <div class="fp-hdr">
     <div class="fp-dot"></div>
     <span class="fp-title">Invoice Details</span>
   </div>
 
+  <!-- GF Status -->
+  <div class="gf-strip"><div class="gf-dot"></div><span>Google Sheets: Ready — 14 fields connected</span></div>
+
+  <!-- Invoice Type Toggle -->
+  <div class="sec">Invoice Type</div>
+  <div class="inv-type-toggle">
+    <button class="inv-type-btn active" id="btnGST" onclick="setInvType('gst')">🧾 GST Invoice</button>
+    <button class="inv-type-btn" id="btnNonGST" onclick="setInvType('nongst')">📄 Non-GST Invoice</button>
+  </div>
+
   <div class="sec">Logo</div>
   <div class="logo-zone" onclick="document.getElementById('logoFile').click()">
-    <img id="logoThumb" src="ledhouselogo.jpeg" class="logo-prev" alt="logo"/>
+    <img id="logoThumb" class="logo-prev" alt="logo"/>
     <div class="logo-hint">Click to upload logo (PNG/JPG)</div>
     <input type="file" id="logoFile" accept="image/*" onchange="handleLogo(event)"/>
   </div>
 
   <div class="sec">Business (Seller)</div>
   <div class="f"><label>Company Name *</label><input id="s_name" placeholder="LED House" oninput="generate()"/></div>
+  <div class="f" id="gstin_row"><label>GSTIN *</label><input id="s_gstin" placeholder="21EVTPR8050M1ZT" maxlength="15" oninput="generate()"/></div>
   <div class="f"><label>Address</label><textarea id="s_addr" oninput="generate()"></textarea></div>
   <div class="r2">
     <div class="f"><label>Phone</label><input id="s_phone" oninput="generate()"/></div>
@@ -326,9 +297,18 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
       </select>
     </div>
   </div>
+  <!-- GST type: only shown for GST invoice -->
+  <div class="f" id="gst_type_row">
+    <label>GST Type</label>
+    <select id="gst_type" onchange="generate()">
+      <option value="intra">Intra-State (CGST+SGST)</option>
+      <option value="inter">Inter-State (IGST)</option>
+    </select>
+  </div>
 
   <div class="sec">Bill To</div>
   <div class="f"><label>Buyer Name *</label><input id="b_name" placeholder="Customer / Company Name" oninput="generate()"/></div>
+  <div class="f" id="b_gstin_row"><label>Buyer GSTIN (optional)</label><input id="b_gstin" placeholder="Optional" oninput="generate()"/></div>
   <div class="f"><label>Address</label><textarea id="b_addr" oninput="generate()"></textarea></div>
   <div class="r2">
     <div class="f"><label>Phone</label><input id="b_phone" oninput="generate()"/></div>
@@ -351,12 +331,25 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
     <div class="f"><label>Branch</label><input id="bank_branch" oninput="generate()"/></div>
   </div>
 
-  <div class="sec">Line Items</div>
-  <div class="items-hdr">
-    <span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Rate</span><span style="text-align:right">Disc%</span><span></span>
+  <!-- GST Items -->
+  <div id="items_gst_section">
+    <div class="sec">Line Items (GST)</div>
+    <div class="items-hdr-gst">
+      <span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Rate</span><span style="text-align:right">Disc%</span><span style="text-align:right">GST%</span><span></span>
+    </div>
+    <div id="itemsList"></div>
+    <button class="add-btn" onclick="addItem()">＋ Add Item</button>
   </div>
-  <div id="itemsList"></div>
-  <button class="add-btn" onclick="addItem()">＋ Add Item</button>
+
+  <!-- Non-GST Items -->
+  <div id="items_nongst_section" style="display:none">
+    <div class="sec">Line Items (Non-GST)</div>
+    <div class="items-hdr-plain">
+      <span>Description</span><span style="text-align:center">Qty</span><span style="text-align:right">Rate</span><span style="text-align:right">Disc%</span><span></span>
+    </div>
+    <div id="itemsListNG"></div>
+    <button class="add-btn" onclick="addItemNG()">＋ Add Item</button>
+  </div>
 
   <div class="sec">Discount & Rounding</div>
   <div class="r2">
@@ -376,295 +369,542 @@ body{background:#e4ddd4;font-family:var(--font-body);min-height:100vh;padding:20
   <div class="f"><label>Terms & Conditions</label><textarea id="terms" oninput="generate()"></textarea></div>
 </div>
 
-<!-- PREVIEW -->
 <div class="prev-wrap">
   <div class="prev-label">Live Preview — A4 (210 × 297 mm)</div>
   <div id="invoiceOut"></div>
 </div>
-
 </div>
 
 <script>
-let logoSrc="ledhouselogo.jpeg",itemCount=0;
+// ── STATE ──────────────────────────────────────────────────────────────────
+var logoSrc = "ledhouselogo.jpeg";
+var itemCount = 0, itemCountNG = 0;
+var invType = 'gst'; // 'gst' or 'nongst'
 
-function V(id){const el=document.getElementById(id);return el?el.value.trim():'';}
-function today(){return new Date().toISOString().split('T')[0];}
-function fmtDate(d){if(!d)return'';const[y,m,dd]=d.split('-');const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return`${dd} ${mo[+m-1]} ${y}`;}
-function fmt(n,cur='₹'){return cur+(+n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
-function fmtN(n){return(+n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+// ── GOOGLE FORM ────────────────────────────────────────────────────────────
+var GF_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdMEPzKGvlUKeO_0O2wdZd03FYEuan_81i4tvLVie7O5WVmkw/formResponse';
+var GF = {
+  inv_no:   'entry.711848445',
+  inv_date: 'entry.1141355359',
+  b_name:   'entry.1518693747',
+  b_gstin:  'entry.1178364128',
+  b_phone:  'entry.1979914834',
+  b_addr:   'entry.245762926',
+  inv_desc: 'entry.2070361448',
+  items:    'entry.1687791023',
+  taxable:  'entry.2088664193',
+  gst_amt:  'entry.482730463',
+  grand:    'entry.160476307',
+  sh_name:  'entry.1791464602',
+  sh_addr:  'entry.371959909',
+  notes:    'entry.1206998346'
+};
 
-const ones_=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
-const tens_=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
-function hw(n){if(n<20)return ones_[n];if(n<100)return tens_[Math.floor(n/10)]+(n%10?' '+ones_[n%10]:'');return ones_[Math.floor(n/100)]+' Hundred'+(n%100?' '+hw(n%100):'');}
-function inWords(n){n=Math.round(n);if(!n)return'Zero';let s='';const cr=Math.floor(n/10000000);n%=10000000;if(cr)s+=hw(cr)+' Crore ';const lac=Math.floor(n/100000);n%=100000;if(lac)s+=hw(lac)+' Lakh ';const th=Math.floor(n/1000);n%=1000;if(th)s+=hw(th)+' Thousand ';if(n)s+=hw(n);return s.trim()+' Only';}
+// ── SPLIT MENU ─────────────────────────────────────────────────────────────
+function toggleSdMenu(e){ e.stopPropagation(); document.getElementById('sdMenu').classList.toggle('open'); }
+function closeSdMenu(){ document.getElementById('sdMenu').classList.remove('open'); }
+document.addEventListener('click', function(e){ if(!document.getElementById('sdGroup').contains(e.target)) closeSdMenu(); });
 
-function handleLogo(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{logoSrc=ev.target.result;document.getElementById('logoThumb').src=logoSrc;generate();};r.readAsDataURL(file);}
-
-function addItem(desc='',qty=1,rate=0,disc=0){
-  itemCount++;const id=itemCount;
-  const div=document.createElement('div');div.className='item-row';div.id='irow_'+id;
-  div.innerHTML=`
-    <input placeholder="Item description" value="${desc}" id="id_${id}" oninput="generate()"/>
-    <input type="number" min="0" value="${qty}" id="iq_${id}" oninput="generate()" style="text-align:center"/>
-    <input type="number" min="0" value="${rate}" id="ir_${id}" oninput="generate()" style="text-align:right" placeholder="0"/>
-    <input type="number" min="0" max="100" value="${disc}" id="idc_${id}" oninput="generate()" style="text-align:center" placeholder="0"/>
-    <button class="del-btn" onclick="removeItem(${id})">✕</button>`;
-  document.getElementById('itemsList').appendChild(div);generate();
+// ── HELPERS ────────────────────────────────────────────────────────────────
+function V(id){ var el=document.getElementById(id); return el ? el.value.trim() : ''; }
+function today(){ return new Date().toISOString().split('T')[0]; }
+function fmtDate(d){
+  if(!d) return '';
+  var p=d.split('-'), mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return p[2]+' '+mo[+p[1]-1]+' '+p[0];
 }
-function removeItem(id){document.getElementById('irow_'+id).remove();generate();}
+function fmt(n,cur){ cur=cur||'\u20B9'; return cur+(+n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtN(n){ return (+n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+var ones_=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+var tens_=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+function hw(n){ if(n<20)return ones_[n]; if(n<100)return tens_[Math.floor(n/10)]+(n%10?' '+ones_[n%10]:''); return ones_[Math.floor(n/100)]+' Hundred'+(n%100?' '+hw(n%100):''); }
+function inWords(n){
+  n=Math.round(n); if(!n)return 'Zero'; var s='';
+  var cr=Math.floor(n/10000000); n%=10000000; if(cr)s+=hw(cr)+' Crore ';
+  var lac=Math.floor(n/100000); n%=100000; if(lac)s+=hw(lac)+' Lakh ';
+  var th=Math.floor(n/1000); n%=1000; if(th)s+=hw(th)+' Thousand ';
+  if(n)s+=hw(n); return s.trim()+' Only';
+}
+function applyRound(v){ var ro=V('roundoff'); if(ro==='round')return Math.round(v); if(ro==='floor')return Math.floor(v); if(ro==='ceil')return Math.ceil(v); return v; }
+
+// ── INVOICE TYPE ───────────────────────────────────────────────────────────
+function setInvType(t){
+  invType=t;
+  document.getElementById('btnGST').className='inv-type-btn'+(t==='gst'?' active':'');
+  document.getElementById('btnNonGST').className='inv-type-btn'+(t==='nongst'?' active':'');
+  document.getElementById('items_gst_section').style.display=t==='gst'?'block':'none';
+  document.getElementById('items_nongst_section').style.display=t==='nongst'?'block':'none';
+  document.getElementById('gstin_row').style.display=t==='gst'?'block':'none';
+  document.getElementById('b_gstin_row').style.display=t==='gst'?'block':'none';
+  document.getElementById('gst_type_row').style.display=t==='gst'?'block':'none';
+  generate();
+}
+
+// ── LOGO ───────────────────────────────────────────────────────────────────
+function handleLogo(e){
+  var file=e.target.files[0]; if(!file)return;
+  var r=new FileReader();
+  r.onload=function(ev){ logoSrc=ev.target.result; document.getElementById('logoThumb').src=logoSrc; generate(); };
+  r.readAsDataURL(file);
+}
+
+// ── GST ITEMS ──────────────────────────────────────────────────────────────
+function addItem(desc,qty,rate,disc,gst){
+  desc=desc||''; qty=qty===undefined?1:qty; rate=rate||0; disc=disc||0; gst=gst===undefined?18:gst;
+  itemCount++;
+  var id=itemCount;
+  var div=document.createElement('div'); div.className='item-row-gst'; div.id='irow_'+id;
+  div.innerHTML=
+    '<input placeholder="Item / HSN: 0000" value="'+desc+'" id="id_'+id+'" oninput="generate()"/>'+
+    '<input type="number" min="0" value="'+qty+'" id="iq_'+id+'" oninput="generate()" style="text-align:center"/>'+
+    '<input type="number" min="0" value="'+rate+'" id="ir_'+id+'" oninput="generate()" style="text-align:right"/>'+
+    '<input type="number" min="0" max="100" value="'+disc+'" id="idc_'+id+'" oninput="generate()" style="text-align:center" placeholder="0"/>'+
+    '<select id="ig_'+id+'" onchange="generate()">'+
+      [0,5,12,18,28].map(function(v){ return '<option value="'+v+'"'+(v==gst?' selected':'')+'>'+v+'%</option>'; }).join('')+
+    '</select>'+
+    '<button class="del-btn" onclick="removeItem('+id+')" title="Remove">✕</button>';
+  document.getElementById('itemsList').appendChild(div);
+  generate();
+}
+function removeItem(id){ document.getElementById('irow_'+id).remove(); generate(); }
 
 function getItems(){
-  return[...document.querySelectorAll('.item-row')].map(row=>{
-    const id=row.id.split('_')[1];
-    const desc=document.getElementById('id_'+id).value||'Item';
-    const qty=+document.getElementById('iq_'+id).value||0;
-    const rate=+document.getElementById('ir_'+id).value||0;
-    const disc=+document.getElementById('idc_'+id).value||0;
-    const gross=qty*rate;const discAmt=gross*disc/100;const net=gross-discAmt;
-    return{desc,qty,rate,disc,gross,discAmt,net};
+  return Array.from(document.querySelectorAll('.item-row-gst')).map(function(row){
+    var id=row.id.split('_')[1];
+    var rawDesc=document.getElementById('id_'+id).value||'Item';
+    var hsnMatch=rawDesc.match(/HSN[:\s]+([0-9]+)/i);
+    var hsn=hsnMatch?hsnMatch[1]:'';
+    var desc=rawDesc.replace(/\|?\s*HSN[:\s]+[0-9]+/gi,'').trim();
+    var qty=+document.getElementById('iq_'+id).value||0;
+    var rate=+document.getElementById('ir_'+id).value||0;
+    var disc=+document.getElementById('idc_'+id).value||0;
+    var gst=+document.getElementById('ig_'+id).value||0;
+    var gross=qty*rate;
+    var discAmt=gross*disc/100;
+    var taxable=gross-discAmt;
+    var gstAmt=taxable*gst/100;
+    var net=taxable+gstAmt;
+    return{desc:desc,hsn:hsn,qty:qty,rate:rate,disc:disc,gross:gross,discAmt:discAmt,taxable:taxable,gst:gst,gstAmt:gstAmt,net:net};
   });
 }
 
-function applyRound(v){const ro=V('roundoff');if(ro==='round')return Math.round(v);if(ro==='floor')return Math.floor(v);if(ro==='ceil')return Math.ceil(v);return v;}
+// ── NON-GST ITEMS ──────────────────────────────────────────────────────────
+function addItemNG(desc,qty,rate,disc){
+  desc=desc||''; qty=qty===undefined?1:qty; rate=rate||0; disc=disc||0;
+  itemCountNG++;
+  var id=itemCountNG;
+  var div=document.createElement('div'); div.className='item-row-plain'; div.id='irowng_'+id;
+  div.innerHTML=
+    '<input placeholder="Item description" value="'+desc+'" id="idng_'+id+'" oninput="generate()"/>'+
+    '<input type="number" min="0" value="'+qty+'" id="iqng_'+id+'" oninput="generate()" style="text-align:center"/>'+
+    '<input type="number" min="0" value="'+rate+'" id="irng_'+id+'" oninput="generate()" style="text-align:right"/>'+
+    '<input type="number" min="0" max="100" value="'+disc+'" id="idcng_'+id+'" oninput="generate()" style="text-align:center" placeholder="0"/>'+
+    '<button class="del-btn" onclick="removeItemNG('+id+')" title="Remove">✕</button>';
+  document.getElementById('itemsListNG').appendChild(div);
+  generate();
+}
+function removeItemNG(id){ document.getElementById('irowng_'+id).remove(); generate(); }
 
-function generate(){
-  const cur=V('currency')||'₹';
-  const items=getItems();
-  const extraDisc=+V('extra_disc')||0;
-  let subTotal=0,itemDiscTotal=0;
-  items.forEach(i=>{subTotal+=i.gross;itemDiscTotal+=i.discAmt;});
-  const afterItemDisc=subTotal-itemDiscTotal;
-  const extraDiscAmt=afterItemDisc*extraDisc/100;
-  const beforeRound=afterItemDisc-extraDiscAmt;
-  const grandTotal=applyRound(beforeRound);
-  const roundDiff=grandTotal-beforeRound;
-
-  /* table rows */
-  let tRows='';
-  items.forEach((it,i)=>{
-    tRows+=`<tr>
-      <td style="text-align:center;color:#bbb;font-family:'DM Mono',monospace">${i+1}</td>
-      <td class="dc">${it.desc}</td>
-      <td>${fmtN(it.qty)}</td>
-      <td>${fmtN(it.rate)}</td>
-      <td>${it.disc>0?`<span style="color:#4a8a5c;font-weight:600">−${fmtN(it.discAmt)}</span><span style="font-size:6px;color:#8aaa8a;display:block">${it.disc}% off</span>`:'<span style="color:#ddd">—</span>'}</td>
-      <td class="tc">${fmtN(it.net)}</td>
-    </tr>`;
+function getItemsNG(){
+  return Array.from(document.querySelectorAll('.item-row-plain')).map(function(row){
+    var id=row.id.split('_')[1];
+    var desc=document.getElementById('idng_'+id).value||'Item';
+    var qty=+document.getElementById('iqng_'+id).value||0;
+    var rate=+document.getElementById('irng_'+id).value||0;
+    var disc=+document.getElementById('idcng_'+id).value||0;
+    var gross=qty*rate;
+    var discAmt=gross*disc/100;
+    var net=gross-discAmt;
+    return{desc:desc,qty:qty,rate:rate,disc:disc,gross:gross,discAmt:discAmt,net:net};
   });
-  if(!items.length)tRows=`<tr><td colspan="6" style="text-align:center;color:#ccc;padding:14px;font-style:italic;font-size:8px">No items added yet</td></tr>`;
+}
 
-  /* total summary rows */
-  let sumRows='';
-  if(itemDiscTotal>0)sumRows+=`<div class="t-row disc"><span>Item Discounts</span><strong>− ${fmt(itemDiscTotal,cur)}</strong></div>`;
-  if(extraDisc>0)sumRows+=`<div class="t-row disc"><span>Extra Discount (${extraDisc}%)</span><strong>− ${fmt(extraDiscAmt,cur)}</strong></div>`;
-  if(Math.abs(roundDiff)>0.001)sumRows+=`<div class="t-row rnd"><span>Round Off</span><strong>${roundDiff>=0?'+':''}${fmt(Math.abs(roundDiff),cur)}</strong></div>`;
+// ── GENERATE ──────────────────────────────────────────────────────────────
+function generate(){
+  var cur=V('currency')||'\u20B9';
+  var gstType=V('gst_type')||'intra';
+  var extraDisc=+V('extra_disc')||0;
+  var sName=V('s_name')||'LED House';
 
-  const sName=V('s_name')||'LED House';
-  const upiId=V('upi_id');
-  const grandRounded=Math.round(grandTotal);
-  const upiUrl=upiId?`upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(sName)}&am=${grandRounded}&cu=INR&tn=Invoice%20${encodeURIComponent(V('inv_no')||'INV')}`:'';
-  const qrUrl=upiId?`https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(upiUrl)}`:'';
-  const webQr=`https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent('https://sites.google.com/view/ledhouseprem/home')}`;
+  if(invType==='gst'){
+    generateGST(cur, gstType, extraDisc, sName);
+  } else {
+    generateNonGST(cur, extraDisc, sName);
+  }
+}
 
-  const sAddr=V('s_addr').replace(/\n/g,'<br/>');
-  const bAddr=V('b_addr').replace(/\n/g,'<br/>');
-  const shName=V('sh_name')||V('b_name')||'—';
-  const shAddr=(V('sh_addr')||V('b_addr')).replace(/\n/g,'<br/>');
-  const notes=V('notes')||'Cash / UPI / Bank Transfer';
-  const terms=V('terms')||'Goods once sold will not be taken back. E. & O.E.';
+function generateGST(cur, gstType, extraDisc, sName){
+  var items=getItems();
+  var subTotal=0, itemDiscTotal=0, totalGST=0;
+  items.forEach(function(i){ subTotal+=i.gross; itemDiscTotal+=i.discAmt; totalGST+=i.gstAmt; });
+  var afterItemDisc=subTotal-itemDiscTotal;
+  var extraDiscAmt=afterItemDisc*extraDisc/100;
+  var taxableTotal=afterItemDisc-extraDiscAmt;
+  var beforeRound=taxableTotal+totalGST;
+  var grandTotal=applyRound(beforeRound);
+  var roundDiff=grandTotal-beforeRound;
 
-  const html=`
-<div class="a4" id="a4doc">
-  <!-- corner ornaments -->
-  <div class="c-tl"></div><div class="c-tr"></div>
-  <div class="c-bl"></div><div class="c-br"></div>
-  <div class="c-dot c-dot-tl"></div><div class="c-dot c-dot-tr"></div>
-  <div class="c-dot c-dot-bl"></div><div class="c-dot c-dot-br"></div>
+  // GST breakdown map
+  var gstMap={};
+  items.forEach(function(i){
+    if(!gstMap[i.gst]) gstMap[i.gst]={taxable:0,gstAmt:0};
+    gstMap[i.gst].taxable+=i.taxable; gstMap[i.gst].gstAmt+=i.gstAmt;
+  });
 
-  <div class="a4-body">
+  var tRows='';
+  items.forEach(function(it,i){
+    var taxDisplay=gstType==='intra'
+      ?'<span>'+fmtN(it.gstAmt/2)+'</span><span style="font-size:6px;color:#bbb;display:block">CGST '+it.gst/2+'%+SGST '+it.gst/2+'%</span>'
+      :'<span>'+fmtN(it.gstAmt)+'</span><span style="font-size:6px;color:#bbb;display:block">IGST '+it.gst+'%</span>';
+    tRows+='<tr>'+
+      '<td style="text-align:center;color:#bbb;font-family:\'DM Mono\',monospace">'+(i+1)+'</td>'+
+      '<td class="dc">'+it.desc+(it.hsn?'<span style="font-size:6px;color:#bbb;display:block">HSN: '+it.hsn+'</span>':'')+'</td>'+
+      '<td>'+fmtN(it.qty)+'</td>'+
+      '<td>'+fmtN(it.rate)+'</td>'+
+      (it.disc>0?'<td><span style="color:#4a8a5c;font-weight:600">&#x2212;'+fmtN(it.discAmt)+'</span><span style="font-size:6px;color:#8aaa8a;display:block">'+it.disc+'% off</span></td>':'<td><span style="color:#ddd">&#x2014;</span></td>')+
+      '<td>'+fmtN(it.taxable)+'</td>'+
+      '<td>'+taxDisplay+'</td>'+
+      '<td class="tc">'+fmtN(it.net)+'</td>'+
+    '</tr>';
+  });
+  if(!items.length) tRows='<tr><td colspan="8" style="text-align:center;color:#ccc;padding:14px;font-style:italic;font-size:8px">No items added yet</td></tr>';
 
-    <!-- HEADER BAND -->
-    <div class="inv-header-band">
-      <div class="hdr-left">
-        <img src="${logoSrc}" class="hdr-logo" alt="logo" crossorigin="anonymous"/>
-        <div>
-          <div class="hdr-co-name">${sName}</div>
-          <div class="hdr-co-contact">
-            ${V('s_phone')?`📞 ${V('s_phone')}&nbsp;&nbsp;`:''}${V('s_email')?`✉️ ${V('s_email')}`:''}
-            ${sAddr?`<br/>📍 ${sAddr}`:''}
-          </div>
-        </div>
-      </div>
-      <div class="hdr-right">
-        <div class="hdr-inv-word">Invoice</div>
-        <div class="hdr-inv-no"># ${V('inv_no')||'INV-001'}</div>
-        <div class="hdr-date-tag">📅 ${fmtDate(V('inv_date')||today())}</div>
-        ${V('due_date')?`<div class="hdr-due">Due: ${fmtDate(V('due_date'))}</div>`:''}
-      </div>
-    </div>
+  var taxRows='';
+  Object.entries(gstMap).forEach(function(kv){
+    var rate=kv[0], d=kv[1]; if(+rate===0) return;
+    if(gstType==='intra'){
+      taxRows+='<div class="t-row"><span>CGST @ '+(+rate/2)+'%</span><strong>'+fmt(d.gstAmt/2,cur)+'</strong></div>'+
+               '<div class="t-row"><span>SGST @ '+(+rate/2)+'%</span><strong>'+fmt(d.gstAmt/2,cur)+'</strong></div>';
+    } else {
+      taxRows+='<div class="t-row"><span>IGST @ '+rate+'%</span><strong>'+fmt(d.gstAmt,cur)+'</strong></div>';
+    }
+  });
 
-    <!-- STRIPE -->
-    <div class="stripe"></div>
+  var sumRows='';
+  if(itemDiscTotal>0) sumRows+='<div class="t-row disc"><span>Item Discounts</span><strong>&#x2212; '+fmt(itemDiscTotal,cur)+'</strong></div>';
+  if(extraDisc>0) sumRows+='<div class="t-row disc"><span>Extra Discount ('+extraDisc+'%)</span><strong>&#x2212; '+fmt(extraDiscAmt,cur)+'</strong></div>';
+  sumRows+=taxRows;
+  if(Math.abs(roundDiff)>0.001) sumRows+='<div class="t-row rnd"><span>Round Off</span><strong>'+(roundDiff>=0?'+':'')+fmt(Math.abs(roundDiff),cur)+'</strong></div>';
 
-    <!-- CONTENT -->
-    <div class="content">
+  renderInvoice({
+    cur:cur, sName:sName, items:items, grandTotal:grandTotal, grandRounded:Math.round(grandTotal),
+    subTotal:subTotal, sumRows:sumRows, taxableTotal:taxableTotal, totalGST:totalGST,
+    tRows:tRows, colSpan:8, isGST:true, gstType:gstType
+  });
+}
 
-      <!-- PARTY ROW -->
-      <div class="party-row">
-        <div class="party-box">
-          <div class="party-box-top-bar" style="background:linear-gradient(90deg,#7c9e8f,#a8c4b8)"></div>
-          <div class="party-box-label" style="color:#7c9e8f">Bill To</div>
-          <div class="party-box-name">${V('b_name')||'Customer Name'}</div>
-          <div class="party-box-detail">${bAddr}${V('b_phone')?`<br/>📞 ${V('b_phone')}`:''}${V('b_email')?`<br/>✉️ ${V('b_email')}`:''}
-          </div>
-        </div>
-        <div class="party-box">
-          <div class="party-box-top-bar" style="background:linear-gradient(90deg,#c47a5a,#e4a080)"></div>
-          <div class="party-box-label" style="color:#c47a5a">Ship To</div>
-          <div class="party-box-name">${shName}</div>
-          <div class="party-box-detail">${shAddr}${V('sh_phone')?`<br/>📱 ${V('sh_phone')}`:''}
-          </div>
-        </div>
-      </div>
+function generateNonGST(cur, extraDisc, sName){
+  var items=getItemsNG();
+  var subTotal=0, itemDiscTotal=0;
+  items.forEach(function(i){ subTotal+=i.gross; itemDiscTotal+=i.discAmt; });
+  var afterItemDisc=subTotal-itemDiscTotal;
+  var extraDiscAmt=afterItemDisc*extraDisc/100;
+  var beforeRound=afterItemDisc-extraDiscAmt;
+  var grandTotal=applyRound(beforeRound);
+  var roundDiff=grandTotal-beforeRound;
 
-      <!-- ITEMS TABLE -->
-      <div class="items-wrap">
-        <div class="tbl-title">Items &amp; Services</div>
-        <div class="tbl-outer">
-          <table class="inv-tbl">
-            <thead>
-              <tr>
-                <th style="width:22px;text-align:center">#</th>
-                <th style="text-align:left">Description</th>
-                <th style="width:38px">Qty</th>
-                <th style="width:60px">Rate (${cur})</th>
-                <th style="width:78px">Discount</th>
-                <th style="width:68px">Amount (${cur})</th>
-              </tr>
-            </thead>
-            <tbody>${tRows}</tbody>
-            ${items.length?`<tfoot><tr>
-              <td colspan="5" style="text-align:right;font-weight:700;font-size:8px;color:#c47a5a">Sub-Total</td>
-              <td style="text-align:right;font-family:'DM Mono',monospace;font-weight:700;color:#c47a5a">${fmtN(afterItemDisc)}</td>
-            </tr></tfoot>`:''}
-          </table>
-        </div>
-      </div>
+  var tRows='';
+  items.forEach(function(it,i){
+    tRows+='<tr>'+
+      '<td style="text-align:center;color:#bbb;font-family:\'DM Mono\',monospace">'+(i+1)+'</td>'+
+      '<td class="dc">'+it.desc+'</td>'+
+      '<td>'+fmtN(it.qty)+'</td>'+
+      '<td>'+fmtN(it.rate)+'</td>'+
+      (it.disc>0?'<td><span style="color:#4a8a5c;font-weight:600">&#x2212;'+fmtN(it.discAmt)+'</span><span style="font-size:6px;color:#8aaa8a;display:block">'+it.disc+'% off</span></td>':'<td><span style="color:#ddd">&#x2014;</span></td>')+
+      '<td class="tc">'+fmtN(it.net)+'</td>'+
+    '</tr>';
+  });
+  if(!items.length) tRows='<tr><td colspan="6" style="text-align:center;color:#ccc;padding:14px;font-style:italic;font-size:8px">No items added yet</td></tr>';
 
-      <!-- BOTTOM GRID -->
-      <div class="bottom-grid">
+  var sumRows='';
+  if(itemDiscTotal>0) sumRows+='<div class="t-row disc"><span>Item Discounts</span><strong>&#x2212; '+fmt(itemDiscTotal,cur)+'</strong></div>';
+  if(extraDisc>0) sumRows+='<div class="t-row disc"><span>Extra Discount ('+extraDisc+'%)</span><strong>&#x2212; '+fmt(extraDiscAmt,cur)+'</strong></div>';
+  if(Math.abs(roundDiff)>0.001) sumRows+='<div class="t-row rnd"><span>Round Off</span><strong>'+(roundDiff>=0?'+':'')+fmt(Math.abs(roundDiff),cur)+'</strong></div>';
 
-        <!-- LEFT: bank + QR + terms -->
-        <div class="left-col">
-          <div class="bank-box">
-            <div class="box-title">Bank Details</div>
-            ${V('bank_name')?`<div class="brow"><strong>Bank</strong>${V('bank_name')}</div>`:''}
-            ${V('bank_acc')?`<div class="brow"><strong>A/C</strong>${V('bank_acc')}</div>`:''}
-            ${V('bank_ifsc')?`<div class="brow"><strong>IFSC</strong>${V('bank_ifsc')}</div>`:''}
-            ${V('bank_branch')?`<div class="brow"><strong>Branch</strong>${V('bank_branch')}</div>`:''}
-            ${V('upi_id')?`<div class="brow"><strong>UPI</strong>${V('upi_id')}</div>`:''}
-            <div class="pay-sep"></div>
-            <div class="pay-sub">Payment Options</div>
-            <div class="pay-txt">${notes.replace(/\n/g,'<br/>')}</div>
-          </div>
-          <div class="qr-row">
-            ${qrUrl?`<div class="qr-box"><img src="${qrUrl}" class="qr-img" crossorigin="anonymous"/><div class="qr-cap">Scan &amp; Pay<br/><b>${cur}${grandRounded.toLocaleString('en-IN')}</b></div></div>`:`<div style="width:64px;height:64px;border:1px dashed #ccc;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:6px;color:#ccc;text-align:center">Add UPI for QR</div>`}
-            <div class="qr-box"><img src="${webQr}" class="qr-img" crossorigin="anonymous"/><div class="qr-cap">Website<br/><b>ledhouseprem</b></div></div>
-          </div>
-          <div class="terms-box">
-            <div class="terms-title">Terms &amp; Conditions</div>
-            <div class="terms-txt">${terms.replace(/\n/g,'<br/>')}</div>
-          </div>
-        </div>
+  renderInvoice({
+    cur:cur, sName:sName, items:items, grandTotal:grandTotal, grandRounded:Math.round(grandTotal),
+    subTotal:subTotal, sumRows:sumRows, taxableTotal:beforeRound, totalGST:0,
+    tRows:tRows, colSpan:6, isGST:false, gstType:''
+  });
+}
 
-        <!-- RIGHT: totals + signature -->
-        <div class="right-col">
-          <div class="totals-box">
-            <div class="totals-title">Payment Summary</div>
-            <div class="t-row"><span>Gross Total</span><strong>${fmt(subTotal,cur)}</strong></div>
-            ${sumRows}
-            <div class="grand-sep"></div>
-            <div class="grand-row">
-              <div class="grand-lbl">Grand Total</div>
-              <div class="grand-amt">${cur}${grandTotal.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
-            </div>
-            <div class="words-row">Rupees ${inWords(grandRounded)}</div>
-          </div>
+function renderInvoice(d){
+  var upiId=V('upi_id');
+  var upiUrl=upiId?'upi://pay?pa='+encodeURIComponent(upiId)+'&pn='+encodeURIComponent(d.sName)+'&am='+d.grandRounded+'&cu=INR&tn=Invoice%20'+encodeURIComponent(V('inv_no')||'INV'):'';
+  var qrUrl=upiId?'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data='+encodeURIComponent(upiUrl):'';
+  var webQr='https://api.qrserver.com/v1/create-qr-code/?size=130x130&data='+encodeURIComponent('https://sites.google.com/view/ledhouseprem/home');
+  var sAddr=V('s_addr').replace(/\n/g,'<br/>');
+  var bAddr=V('b_addr').replace(/\n/g,'<br/>');
+  var shName=V('sh_name')||V('b_name')||'&#x2014;';
+  var shAddr=(V('sh_addr')||V('b_addr')).replace(/\n/g,'<br/>');
+  var notes=V('notes')||'Cash / UPI / Bank Transfer';
+  var terms=V('terms')||'Goods once sold will not be taken back.';
 
-          <!-- SIGNATURE -->
-          <div class="sig-box">
-            <div class="sig-for-label">For</div>
-            <div class="sig-co-name">${sName}</div>
-            <div class="sig-area">
-              <div class="sig-curve-wrap">
-                             
-                <div class="sig-underline"></div>
-                <div class="sig-label">Authorized Signatory</div>
-              </div>
-            </div>
-          </div>
-        </div>
+  // Table header based on invoice type
+  var tHead = d.isGST
+    ? '<th style="width:22px;text-align:center">#</th><th style="text-align:left">Description</th><th style="width:36px">Qty</th><th style="width:52px">Rate</th><th style="width:68px">Discount</th><th style="width:54px">Taxable</th><th style="width:72px">GST Amt</th><th style="width:60px">Amount</th>'
+    : '<th style="width:22px;text-align:center">#</th><th style="text-align:left">Description</th><th style="width:36px">Qty</th><th style="width:52px">Rate</th><th style="width:68px">Discount</th><th style="width:60px">Amount</th>';
 
-      </div>
-    </div><!-- /content -->
+  var invoiceBadge = d.isGST ? 'TAX INVOICE' : 'INVOICE';
+  var gstinLine = d.isGST && V('s_gstin') ? '<div style="font-size:6.5px;color:rgba(255,255,255,.6);margin-top:2px">GSTIN: '+V('s_gstin')+'</div>' : '';
+  var bGstinLine = d.isGST && V('b_gstin') ? '<div class="party-box-detail" style="font-size:6.5px">GSTIN: <strong>'+V('b_gstin')+'</strong></div>' : '';
 
-    <!-- FOOTER -->
-    <div class="inv-footer">
-      <span># ${V('inv_no')||'INV-001'} &nbsp;|&nbsp; ${fmtDate(V('inv_date')||today())}</span>
-      <span class="inv-footer-center">Thank you for your business</span>
-      <span>* Computer generated invoice</span>
-    </div>
+  var html=
+'<div class="a4" id="a4doc">'+
+'<div class="c-tl"></div><div class="c-tr"></div><div class="c-bl"></div><div class="c-br"></div>'+
+'<div class="c-dot c-dot-tl"></div><div class="c-dot c-dot-tr"></div><div class="c-dot c-dot-bl"></div><div class="c-dot c-dot-br"></div>'+
+'<div class="a4-body">'+
 
-  </div><!-- /a4-body -->
-</div>`;
+'<div class="inv-header-band">'+
+  '<div class="hdr-left">'+
+    '<img src="'+logoSrc+'" class="hdr-logo" alt="logo" crossorigin="anonymous"/>'+
+    '<div>'+
+      '<div class="hdr-co-name">'+d.sName+'</div>'+
+      gstinLine+
+      '<div class="hdr-co-contact">'+
+        (V('s_phone')?'&#x1F4DE; '+V('s_phone')+'&nbsp;&nbsp;':'')+
+        (V('s_email')?'&#x2709;&#xFE0F; '+V('s_email'):'')+ 
+        (sAddr?'<br/>&#x1F4CD; '+sAddr:'')+
+      '</div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="hdr-right">'+
+    '<div class="hdr-inv-word">'+invoiceBadge+'</div>'+
+    '<div class="hdr-inv-no"># '+(V('inv_no')||'INV-001')+'</div>'+
+    '<div class="hdr-date-tag">&#x1F4C5; '+fmtDate(V('inv_date')||today())+'</div>'+
+    (V('due_date')?'<div class="hdr-due">Due: '+fmtDate(V('due_date'))+'</div>':'')+
+  '</div>'+
+'</div>'+
+
+'<div class="stripe"></div>'+
+
+'<div class="content">'+
+
+'<div class="party-row">'+
+  '<div class="party-box">'+
+    '<div class="party-box-top-bar" style="background:linear-gradient(90deg,#7c9e8f,#a8c4b8)"></div>'+
+    '<div class="party-box-label" style="color:#7c9e8f">Bill To</div>'+
+    '<div class="party-box-name">'+(V('b_name')||'Customer Name')+'</div>'+
+    bGstinLine+
+    '<div class="party-box-detail">'+bAddr+(V('b_phone')?'<br/>&#x1F4DE; '+V('b_phone'):'')+(V('b_email')?'<br/>&#x2709;&#xFE0F; '+V('b_email'):'')+'</div>'+
+  '</div>'+
+  '<div class="party-box">'+
+    '<div class="party-box-top-bar" style="background:linear-gradient(90deg,#c47a5a,#e4a080)"></div>'+
+    '<div class="party-box-label" style="color:#c47a5a">Ship To</div>'+
+    '<div class="party-box-name">'+shName+'</div>'+
+    '<div class="party-box-detail">'+shAddr+(V('sh_phone')?'<br/>&#x1F4F1; '+V('sh_phone'):'')+'</div>'+
+  '</div>'+
+'</div>'+
+
+'<div class="items-wrap">'+
+  '<div class="tbl-title">Items &amp; Services</div>'+
+  '<div class="tbl-outer">'+
+    '<table class="inv-tbl">'+
+      '<thead><tr>'+tHead+'</tr></thead>'+
+      '<tbody>'+d.tRows+'</tbody>'+
+      (d.items.length?'<tfoot><tr><td colspan="'+(d.colSpan-1)+'" style="text-align:right;font-weight:700;font-size:8px;color:#c47a5a">Sub-Total</td><td style="text-align:right;font-family:\'DM Mono\',monospace;font-weight:700;color:#c47a5a">'+fmtN(d.subTotal)+'</td></tr></tfoot>':'')+
+    '</table>'+
+  '</div>'+
+'</div>'+
+
+'<div class="bottom-grid">'+
+  '<div class="left-col">'+
+    '<div class="bank-box">'+
+      '<div class="box-title">Bank Details</div>'+
+      (V('bank_name')?'<div class="brow"><strong>Bank</strong>'+V('bank_name')+'</div>':'')+
+      (V('bank_acc')?'<div class="brow"><strong>A/C</strong>'+V('bank_acc')+'</div>':'')+
+      (V('bank_ifsc')?'<div class="brow"><strong>IFSC</strong>'+V('bank_ifsc')+'</div>':'')+
+      (V('bank_branch')?'<div class="brow"><strong>Branch</strong>'+V('bank_branch')+'</div>':'')+
+      (V('upi_id')?'<div class="brow"><strong>UPI</strong>'+V('upi_id')+'</div>':'')+
+      '<div class="pay-sep"></div>'+
+      '<div class="pay-sub">Payment Options</div>'+
+      '<div class="pay-txt">'+notes.replace(/\n/g,'<br/>')+'</div>'+
+    '</div>'+
+    '<div class="qr-row">'+
+      (qrUrl?
+        '<div class="qr-box"><img src="'+qrUrl+'" class="qr-img" crossorigin="anonymous"/><div class="qr-cap">Scan &amp; Pay<br/><b>'+d.cur+d.grandRounded.toLocaleString('en-IN')+'</b></div></div>':
+        '<div style="width:64px;height:64px;border:1px dashed #ccc;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:6px;color:#ccc;text-align:center">Add UPI for QR</div>')+
+      '<div class="qr-box"><img src="'+webQr+'" class="qr-img" crossorigin="anonymous"/><div class="qr-cap">Website<br/><b>ledhouseprem</b></div></div>'+
+    '</div>'+
+    '<div class="terms-box">'+
+      '<div class="terms-title">Terms &amp; Conditions</div>'+
+      '<div class="terms-txt">'+terms.replace(/\n/g,'<br/>')+'</div>'+
+    '</div>'+
+  '</div>'+
+
+  '<div class="right-col">'+
+    '<div class="totals-box">'+
+      '<div class="totals-title">Payment Summary</div>'+
+      '<div class="t-row"><span>Gross Total</span><strong>'+fmt(d.subTotal,d.cur)+'</strong></div>'+
+      d.sumRows+
+      '<div class="grand-sep"></div>'+
+      '<div class="grand-row">'+
+        '<div class="grand-lbl">Grand Total</div>'+
+        '<div class="grand-amt">'+d.cur+d.grandTotal.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+'</div>'+
+      '</div>'+
+      '<div class="words-row">Rupees '+inWords(d.grandRounded)+'</div>'+
+    '</div>'+
+    '<div class="sig-box">'+
+      '<div class="sig-for-label">For</div>'+
+      '<div class="sig-co-name">'+d.sName+'</div>'+
+      '<div class="sig-area">'+
+        '<div class="sig-curve-wrap">'+
+          '<div class="sig-underline"></div>'+
+          '<div class="sig-label">Authorized Signatory</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+  '</div>'+
+'</div>'+
+
+'</div>'+
+
+'<div class="inv-footer">'+
+  '<span># '+(V('inv_no')||'INV-001')+' &nbsp;|&nbsp; '+fmtDate(V('inv_date')||today())+'</span>'+
+  '<span class="inv-footer-center">Thank you for your business</span>'+
+  '<span>* Computer generated invoice</span>'+
+'</div>'+
+
+'</div></div>';
 
   document.getElementById('invoiceOut').innerHTML=html;
 }
 
-/* ── HIGH QUALITY PDF ── */
-async function downloadPDF(){
-  generate();
-  await new Promise(r=>setTimeout(r,500));
-  const el=document.getElementById('a4doc');
-  if(!el){alert('Please fill details first.');return;}
-  const btn=document.querySelector('.btn-pdf');
-  btn.textContent='⏳ Generating…';btn.disabled=true;
-  try{
-    /* scale:3 = ~300 dpi equivalent on screen */
-    const canvas=await html2canvas(el,{
-      scale:3,
-      useCORS:true,
-      allowTaint:false,
-      backgroundColor:'#faf7f2',
-      logging:false,
-      imageTimeout:8000,
-      windowWidth:794,
-      windowHeight:1123
-    });
-    const{jsPDF}=window.jspdf;
-    const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
-    const w=pdf.internal.pageSize.getWidth();
-    const h=pdf.internal.pageSize.getHeight();
-    /* Use PNG for crisp borders/text */
-    pdf.addImage(canvas.toDataURL('image/png'),'PNG',0,0,w,h,undefined,'FAST');
-    const fname=(V('inv_no')||'Invoice').replace(/[^a-zA-Z0-9-_]/g,'_');
-    pdf.save(fname+'.pdf');
-  }catch(e){alert('Error generating PDF: '+e.message);}
-  btn.textContent='⬇ Download PDF';btn.disabled=false;
+// ── TOAST & MODAL ──────────────────────────────────────────────────────────
+function showToast(msg){ document.getElementById('toastMsg').textContent=msg; document.getElementById('toast').classList.add('show'); }
+function hideToast(){ document.getElementById('toast').classList.remove('show'); }
+function showModal(ok,title,msg){
+  document.getElementById('mIcon').textContent=ok?'\u2705':'\u26A0\uFE0F';
+  document.getElementById('mTitle').textContent=title;
+  document.getElementById('mMsg').innerHTML=msg.replace(/\n/g,'<br/>');
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('mOv').classList.add('show');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('show'); document.getElementById('mOv').classList.remove('show'); }
+
+// ── GOOGLE FORM SUBMIT ─────────────────────────────────────────────────────
+function submitToGoogleForm(grand, totalGST, taxable){
+  var items = invType==='gst' ? getItems() : getItemsNG();
+  var summary=items.map(function(i){ return (i.desc||'Item')+' x'+i.qty+(i.disc?' -'+i.disc+'%':'')+(invType==='gst'?' +'+i.gst+'%GST':'')+' ='+fmtN(i.net); }).join(' | ');
+  var fields=[
+    [GF.inv_no,   V('inv_no')],
+    [GF.inv_date, V('inv_date')],
+    [GF.b_name,   V('b_name')],
+    [GF.b_gstin,  V('b_gstin')],
+    [GF.b_phone,  V('b_phone')],
+    [GF.b_addr,   V('b_addr')],
+    [GF.inv_desc, invType==='gst'?'GST Invoice':'Non-GST Invoice'],
+    [GF.items,    summary],
+    [GF.taxable,  taxable.toFixed(2)],
+    [GF.gst_amt,  totalGST.toFixed(2)],
+    [GF.grand,    String(Math.round(grand))],
+    [GF.sh_name,  V('sh_name')||V('b_name')],
+    [GF.sh_addr,  V('sh_addr')||V('b_addr')],
+    [GF.notes,    V('notes')]
+  ];
+  return new Promise(function(resolve){
+    try{
+      var iframe=document.getElementById('gf_if');
+      if(!iframe){ iframe=document.createElement('iframe'); iframe.id='gf_if'; iframe.name='gf_if'; iframe.style.display='none'; document.body.appendChild(iframe); }
+      var form=document.createElement('form');
+      form.method='POST'; form.action=GF_URL; form.target='gf_if'; form.style.display='none';
+      fields.forEach(function(fld){ var inp=document.createElement('input'); inp.type='hidden'; inp.name=fld[0]; inp.value=fld[1]; form.appendChild(inp); });
+      document.body.appendChild(form); form.submit(); document.body.removeChild(form);
+      setTimeout(function(){ resolve(true); },1500);
+    } catch(e){ console.warn('GForm:',e); resolve(false); }
+  });
 }
 
+// ── PDF QUALITY ────────────────────────────────────────────────────────────
+var Q={
+  normal:{scale:2,quality:0.90,label:'Normal (150 DPI)',format:'jpeg'},
+  hd:    {scale:3,quality:0.94,label:'HD (250 DPI)',format:'jpeg'},
+  uhd:   {scale:4,quality:0.97,label:'Ultra HD (400 DPI)',format:'png'}
+};
+async function downloadPDF(q){
+  q=q||'normal'; var preset=Q[q]||Q.normal;
+  generate(); await new Promise(function(r){ setTimeout(r,500); });
+  var el=document.getElementById('a4doc');
+  if(!el){ alert('Generate invoice first.'); return false; }
+  showToast('Generating '+preset.label+'...');
+  try{
+    var canvas=await html2canvas(el,{scale:preset.scale,useCORS:true,allowTaint:false,backgroundColor:'#faf7f2',logging:false,imageTimeout:8000,windowWidth:794,windowHeight:1123});
+    var jsPDF=window.jspdf.jsPDF;
+    var pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
+    var w=pdf.internal.pageSize.getWidth(), h=pdf.internal.pageSize.getHeight();
+    if(preset.format==='png'){
+      pdf.addImage(canvas.toDataURL('image/png'),'PNG',0,0,w,h,undefined,'FAST');
+    } else {
+      pdf.addImage(canvas.toDataURL('image/jpeg',preset.quality),'JPEG',0,0,w,h);
+    }
+    var fname=(V('inv_no')||'Invoice').replace(/[^a-zA-Z0-9\-_]/g,'_');
+    pdf.save(fname+(q==='normal'?'':'_'+q.toUpperCase())+'.pdf');
+    hideToast(); return true;
+  } catch(e){ hideToast(); alert('PDF error: '+e.message); return false; }
+}
+
+// ── SAVE & DOWNLOAD ────────────────────────────────────────────────────────
+async function saveAndDownload(q){
+  q=q||'normal';
+  var btn=document.getElementById('sdMainBtn');
+  btn.disabled=true; btn.textContent='Processing...';
+  generate(); await new Promise(function(r){ setTimeout(r,300); });
+
+  // Compute totals for GF submission
+  var grand=0, totalGST=0, taxable=0;
+  if(invType==='gst'){
+    var items=getItems();
+    var extraDisc=+V('extra_disc')||0;
+    var grossTotal=0, itemDisc=0;
+    items.forEach(function(i){ grossTotal+=i.gross; itemDisc+=i.discAmt; totalGST+=i.gstAmt; });
+    var afterDisc=grossTotal-itemDisc;
+    var extraDiscAmt=afterDisc*extraDisc/100;
+    taxable=afterDisc-extraDiscAmt;
+    grand=applyRound(taxable+totalGST);
+  } else {
+    var itemsNG=getItemsNG();
+    var extraDisc=+V('extra_disc')||0;
+    var grossTotal=0, itemDisc=0;
+    itemsNG.forEach(function(i){ grossTotal+=i.gross; itemDisc+=i.discAmt; });
+    var afterDisc=grossTotal-itemDisc;
+    var extraDiscAmt=afterDisc*extraDisc/100;
+    taxable=afterDisc-extraDiscAmt; totalGST=0;
+    grand=applyRound(taxable);
+  }
+
+  showToast('Saving to Google Sheets...');
+  var saved=await submitToGoogleForm(grand, totalGST, taxable);
+  hideToast();
+  var downloaded=await downloadPDF(q);
+  btn.disabled=false; btn.textContent='\uD83D\uDCBE Save & Download';
+  if(downloaded){
+    var qLabel={normal:'Normal',hd:'HD',uhd:'Ultra HD'}[q]||q;
+    showModal(saved,
+      saved?'Saved & Downloaded!':'Downloaded (save unconfirmed)',
+      saved
+        ?'Invoice '+(V('inv_no')||'#')+' saved to Google Sheets\nand PDF downloaded as '+qLabel+'.'
+        :'PDF downloaded as '+qLabel+'.\nGoogle Sheets save could not be confirmed.'
+    );
+  }
+}
+
+// ── RESET ──────────────────────────────────────────────────────────────────
 function resetAll(){
-  if(!confirm('Reset everything?'))return;
-  ['inv_no','b_name','b_addr','b_phone','b_email','sh_name','sh_addr','sh_phone','due_date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  if(!confirm('Reset everything?')) return;
+  ['inv_no','b_name','b_gstin','b_addr','b_phone','b_email','sh_name','sh_addr','sh_phone','due_date'].forEach(function(id){ var el=document.getElementById(id); if(el)el.value=''; });
   document.getElementById('extra_disc').value='0';
   document.getElementById('roundoff').value='none';
-  document.getElementById('itemsList').innerHTML='';itemCount=0;
+  document.getElementById('itemsList').innerHTML=''; itemCount=0;
+  document.getElementById('itemsListNG').innerHTML=''; itemCountNG=0;
+  setInvType('gst');
   init();
 }
 
+// ── INIT ───────────────────────────────────────────────────────────────────
 function init(){
   document.getElementById('inv_date').value=today();
-  document.getElementById('s_name').value='LED House';
+  document.getElementById('s_name').value='LED HOUSE';
+  document.getElementById('s_gstin').value='21EVTPR8050M1ZT';
   document.getElementById('s_phone').value='+91 9124081685';
   document.getElementById('s_email').value='ledhouseanandapur@gmail.com';
   document.getElementById('s_addr').value='Anandapur Bridge Chhaka, Anandapur, Keonjhar-758021';
@@ -674,7 +914,8 @@ function init(){
   document.getElementById('bank_branch').value='Anandapur';
   document.getElementById('upi_id').value='8144868707@ybl';
   document.getElementById('notes').value='UPI / Cash / Bank Transfer / Cheque';
-  document.getElementById('terms').value='1. Goods once sold will not be taken back.\n2. Invoice shows the actual price of goods described and all particulars are true and correct.\n3. All disputes will be settled under Anandapur jurisdiction.';
+  document.getElementById('terms').value='1. Goods once sold will not be taken back.\n2. Invoice shows the actual price of goods and all particulars are true and correct.\n3. All disputes will be settled under Anandapur jurisdiction.';
+  document.getElementById('logoThumb').src=logoSrc;
   generate();
 }
 init();
